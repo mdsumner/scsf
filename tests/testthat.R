@@ -1,4 +1,4 @@
 library(testthat)
-library(sc)
+library(scsf)
 
-test_check("sc")
+test_check("scsf")

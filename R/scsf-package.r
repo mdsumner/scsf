@@ -1,6 +1,6 @@
-#' sc.
+#' scsf.
 #'
-#' @name sc
+#' @name scsf
 #' @docType package
 NULL
 

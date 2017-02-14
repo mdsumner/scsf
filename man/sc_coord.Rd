@@ -2,7 +2,6 @@
 % Please edit documentation in R/coord.r
 \name{sc_coord}
 \alias{sc_coord}
-\alias{sc_coord}
 \alias{sc_coord.sf}
 \alias{sc_coord}
 \alias{sc_coord.sfc}
@@ -20,8 +19,6 @@
 \alias{sc_coord.POINT}
 \title{Coordinate decomposition}
 \usage{
-sc_coord(x, ...)
-
 \method{sc_coord}{sf}(x, ...)
 
 \method{sc_coord}{sfc}(x, ...)
@@ -39,7 +36,7 @@ sc_coord(x, ...)
 \method{sc_coord}{POINT}(x, ...)
 }
 \arguments{
-\item{x}{input object}
+\item{x}{input `simple features` `sf` object}
 
 \item{...}{arguments passed to methods}
 }
@@ -49,8 +46,8 @@ has the information about the original grouping.
 }
 \examples{
 data("sfzoo")
-lapply(sfzoo, sc_coord)
 sc_coord(sf::st_sfc(sfzoo))
+lapply(sfzoo, sc_coord)
 sc_coord(sf::st_sfc(sfzoo))
 }
 \seealso{

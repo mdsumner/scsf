@@ -18,27 +18,24 @@ sc_geom_names <- function(gnames) {
 }
 sfcoords <- function(x, ...) tibble::as_tibble(m_v(x))
 
+
 #' Coordinate decomposition
 #' 
 #' Collect all coordinates in one table, the path_link_vertex table
 #' has the information about the original grouping.  
 #' 
-#' @param x input object
+#' @param x input `simple features` `sf` object
 #' @param ... arguments passed to methods
-#'
-#' @name sc_coord
-#' @export
 #' @seealso `sc_path` for the central part of the model, `sc_object` for 
 #' the features, and `PATH` for the full model. 
-#' @examples 
-#' data("sfzoo")
-#' lapply(sfzoo, sc_coord)
-sc_coord <- function(x, ...) UseMethod("sc_coord")
 #' @importFrom sf st_geometry
+#' @importFrom sc sc_coord
 #' @name sc_coord
 #' @export
 #' @examples
+#' data("sfzoo")
 #' sc_coord(sf::st_sfc(sfzoo))
+#' lapply(sfzoo, sc_coord)
 sc_coord.sf <- function(x, ...) {
   sc_coord(sf::st_geometry(x), ...)
 }

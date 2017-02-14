@@ -1,32 +1,27 @@
 
-#' @importFrom ids random_id
-sc_rand <- function(n = 1L) ids::random_id(n, bytes = 4)
 #' @importFrom tibble tibble
 sc_atom <- function(x, ...) tibble::tibble(ncoords_= nrow(x), path_ = sc_rand())
 sc_list <- function(x) dplyr::bind_rows(lapply(x, sc_atom))
 
-#' Path decomposition
-#' 
-#' Start in the middle, and build the 'path-link-vertex' table. 
-#'
-#' @param x input object
-#' @param ... arguments passed to methods
-#'
-#' @name sc_path
-#' @export
-#' @seealso `sc_coord` for the coordinates part of the model, `sc_object` for 
-#' the features, and `PATH` for the full model. 
-#' @examples 
-#' data("sfzoo")
-#' lapply(sfzoo, sc_path)
-sc_path <- function(x, ...) {
-  UseMethod("sc_path")
+## infix sugar for if (is.null)
+"%||%" <- function(a, b) {
+  if (is.null(a)) b else a
 }
 
+#' Common path forms. 
+#' 
+#' Paths. 
+#' 
+#' @param x simple features object
+#' @param ... arguments to methods
+#' @importFrom sc sc_path sc_rand
 #' @importFrom sf st_geometry
 #' @name sc_path
 #' @export
 #' @examples
+#' library(scsf)
+#' sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
+#' PATH(sf_dataset)
 #' sc_path(sf::st_sfc(sfzoo))
 sc_path.sf <- function(x, ...) {
   sc_path(sf::st_geometry(x), ...)

@@ -2,12 +2,9 @@
 % Please edit documentation in R/object.r
 \name{sc_object}
 \alias{sc_object}
-\alias{sc_object}
 \alias{sc_object.sf}
 \title{Objects, features}
 \usage{
-sc_object(x, ...)
-
 \method{sc_object}{sf}(x, ...)
 }
 \arguments{
@@ -17,7 +14,7 @@ sc_object(x, ...)
 }
 \description{
 The objects are the front end entities, the usual "GIS contract" objects, 
-or features.
+the features.
 }
 \examples{
 library(sf)

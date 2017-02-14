@@ -1,94 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/mdsumner/sc.svg?branch=master)](https://travis-ci.com/mdsumner/sc)
-
-sc
-==
-
-The goal of sc is to provide a general common form for complex multi-dimensional data.
-
-We aim to create a classification of spatial and other hierarchical data in R with tools for more general representations of spatial primitives and the intermediate forms required for translation and analytical tasks. The key is to provide a relational model of indexed primitives and component elements, as a bridge to the traditionally *structural*, or *array/matrix* indexing and storage used in computer graphics and gaming.
-
-A **path** can be treated as a first-class type and and stored as such within a relational model, along with the other entities **objects** ("features") and **vertices**. with this approach we gain two advantages, we can *normalize* the relations (detect and remove redundancy) and also store any additional data about the entitities in the model.
-
-(There is an interplay between "able to store extra information" and "able to normalize", since extra data may introduce further redundancy, but we defer this issue for now since full normalization is not our primary task).
-
-This package provides two main schemes, the `PATH` and the `PRIMITIVE` models. The two models may be mutually exclusive, or they can co-exist. The PATH model can always be derived from the PRIMITIVE model and vice versa but the PRIMITIVE model has extra capacities that PATH cannot provide. (The current design is a distillation and improvement on previous implementations, see `mdsumner/gris` and `r-gris/rangl` for these earlier attempts).
-
-Why?
+scsf
 ====
-
-Geographic Information System (GIS) tools provide data structures optimized for a relatively narrow class of workflows that leverage a combination of *spatial*, graphics, drawing-design, imagery, geodetic and database techniques. When modern GIS was born in the 1990s it adopted a set of compromises that divorced it from its roots in graph theory (arc-node topology) to provide the best performance for what were the most complicated sets of cartographic and land-management system data at the time.
-
-The huge success of ArcView and the shapefile brought this arcane domain into common usage and helped establish our modern view of what "geo-spatial data" is. The creation of the "simple features standard"" in the early 2000s formalized this modern view and provided a basis to avoid some of the inconsistencies and incompleteness that are present in the shapefile specification.
-
-Spatial, graphics, drawing-design, imagery, geodetic and database techniques are broader than any GIS, are used in combination in many fields, but no other field combines them in the way that GIS tools do. GIS does however impose a certain view point, a lens through which each of those very general fields is seen via the perspective of the optimizations, the careful constraints and compromises that were formalized in the early days.
-
-This lens is seen side-on when 1) bringing graphics data (images, drawings) into a GIS where a localization metadata context is assumed 2) attempting to visualize geo-spatial raster data with graphics tools 3) creating lines to represent the path of sensor platforms that record many variables like temperature, salinity, radiative flux as well as location in time and space.
-
-The word "spatial" has a rather general meaning, and while GIS idioms sometimes extend into the Z dimension time is usually treated in a special way. Where GIS really starts to show its limits is in the boundary between discrete and continuous measures and entities. We prefer to default to the most general meaning of spatial, work with tools that allow flexibility despite the (rather arbitrary) choice of topological and geometric structures and dimensions that a given model needs. When the particular optimizations and clever constraints of the simple features and GIS world are required and/or valuable then we use those, but prefer not to see that 1) this model must fit into this GIS view 2) GIS has no place in this model. For us the boundaries are not so sharp and there's valuable cross-over in many fields.
-
-The particular GIS-like limitations that we seek are as follows.
-
--   flexibility in the number and type/s of attribute stored as "coordinates", x, y, lon, lat, z, time, temperature, etc.
--   ability to store attributes on parts i.e. the state is the object, the county is the part
--   shared vertices
--   the ability to leverage topology engines like D3 to dynamically segmentize a piecewise graph using geodetic curvature
--   the ability to extend the hierarchical view in GIS to 3D, 4D spatial, graphical, network and general modelling domains
--   clarity on the distinction between topology and geometry
--   clarity on the distinction between vector and raster data, without having an arbitrary boundary between them
--   multiple models of raster `georeferencing` from basic offset/scale, general affine transform, full curvilinear and partial curvilinear with affine and rectilinear optimizations where applicable
--   ability to store points, lines and areas together, with shared topology as appropriate
--   a flexible and powerful basis for conversion between formats both in the GIS idioms and outside them
--   flexibility, ease-of-use, composability, modularity, tidy-ness
--   integration with specialist computational engines, database systems, geometric algorithms, drawing tools and other systems
--   interactivity, integration with D3, shiny, ggplot2, ggvis, leaflet
--   scaleability, the ability to leverage back-end databases, specialist parallelism engines, remote compute and otherwise distributed compute systems
-
-Flexibility in attributes generally is the key to breaking out of traditional GIS constraints that don't allow clear continuous / discrete distinctions, or time-varying objects/events, 3D/4D geometry, or clarity on topology versus geometry. When everything is tables this becomes natural, and we can build structures like link-relations between tables that transfer data only when required.
-
-The ability many GIS tools from R in a consistent way is long-term goal, and this will be best done via dplyr "back-ending" or a model very like it.
-
-Approach
-========
-
-We can't possibly provide all the aspirations detailed above, but we hope to
-
--   demonstrate the clear need, interest and opportunities that currently exist for fostering their development
--   illustrate links between existing systems that from a slightly different perspective become achievable goals rather than insurmountable challenges
--   provide a platform for generalizing some of the currently fragmented translations that occur across the R community between commonly used tools that aren't formally speaking to each other.
--   provide tools that we build along the way
-
-This package is intended to provide support to the `common form` approach described here. The package is not fully functional yet, but see these projects that are informed by this approach.
-
--   **rbgm** - [Atlantis Box Geometry Model](https://github.com/AustralianAntarcticDivision/rbgm), a "doubly-connected edge-list" form of linked faces and boxes in a spatially-explicit 3D ecosystem model
--   **rangl** - [Primitives for Spatial data](https://github.com/r-gris/rangl), a generalization of GIS forms with simple 3D plotting
--   **spbabel** - [Translators for R Spatial](https://github.com/mdsumner/spbabel), tools to convert from and to spatial forms, provides the general decomposition framework for paths, used by `rangl`
--   **sfct** - [Constrained Triangulation for Simple Features](https://github.com/r-gris/sfct) tools to decompose `simple features` into (non-mesh-indexed) primitives.
-
-Design
-------
-
-There is a hierarchy of sorts with layer, object, path, primitives, coordinates, and vertices.
-
-The current design uses capitalized function names `PATH`, `PRIMITIVE` ... that act on layers, while prefixed lower-case function names produce or derive the named entity at a given level for a given input. E.g. `sc_path` will decompose all the geometries in an `sf` layer to the PATH model and return them in generic form. `PATH` will decompose the layer as a whole, including the component geometries.
-
-`PATH()` is the main model used to decompose inputs, as it is the a more general form of the GIS idioms (simple features and georeferenced raster data) This treats connected *paths* as fully-fledged entities like vertices and objects are, creating a relational model that stores all *vertices* in one table, all *paths* in another, and and all highest-level *objects* in another. The PATH model also takes the extra step of *normalizing* vertices, finding duplicates in a given geometric space and creating an intermediate link table to record all *instances of the vertices*. The PATH model does not currently normalize paths, but this is something that could be done, and is close to what arc-node topology is.
-
-The `PRIMITIVE` function decomposes a layer into actual primitives, rather than "paths", these are point, line segment, triangle, tetrahedron, and so on.
-
-Currently `PATH()` and `PRIMITIVE` are the highest level functions to decompose simple features objects.
-
-There are decomposition functions for lower-level `sf` objects organized as `sc_path`, `sc_coord`, and `sc_object`. `sc_path` does all the work, building a simple map of all the parts and the vertex count. This is used to classify the vertex table when it is extracted, which makes the unique-id management for path-vertex normalization much simpler than it was in `gris` or `rangl`.
-
-**NOTE:** earlier versions of this used the concept of "branch" rather than path, so there is some ongoing migration of the use of these words. *Branch* is a more general concept than implemented in geo-spatial systems generally, and so *path* is more accurate We reserve branch for possible future models that are general. A "point PATH" has meaning in the sense of being a single-vertex "path", and so a multipoint is a collection of these degenerate forms. "Path" as a concept is clearly rooted in optimization suited to planar forms, and so is more accurate than "branch".
-
-In our terminology a branch or path is the group between the raw geometry and the objects, and so applies to a connected polygon ring, closed or open linestring, a single coordinate with a multipoint (a path with one vertex). In this scheme a polygon ring and a closed linestring are exactly the same (since they actually are exactly the same) and there are no plane-filling branches, or indeed volume-filling branches. This is a clear limitation of the branch model and it matches that used by GIS.
-
-Exceptions
-----------
-
-TopoJSON, Eonfusion, PostGIS, QGIS geometry generators, Fledermaus, ...
 
 Example - sf to ggplot2 round trip
 ----------------------------------
@@ -98,7 +11,7 @@ library(sf)
 #> Linking to GEOS 3.5.0, GDAL 2.1.1, proj.4 4.9.3
 ## a MULTIPOLYGON layer
 nc = st_read(system.file("shape/nc.shp", package="sf"))
-#> Reading layer `nc' from data source `C:\Users\mdsumner\Documents\R\win-library\3.3\sf\shape\nc.shp' using driver `ESRI Shapefile'
+#> Reading layer `nc' from data source `C:\Users\michae_sum\R\win-library\3.3\sf\shape\nc.shp' using driver `ESRI Shapefile'
 #> converted into: MULTIPOLYGON
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
@@ -111,9 +24,10 @@ nc = st_read(system.file("shape/nc.shp", package="sf"))
 The common form is the entity tables, objects, paths, vertices and a link table to allow de-duplication of shared vertices. Currently this de-duplication is done on all coordinate fields, but for most applications it will usually be done only in X-Y.
 
 ``` r
-library(sc)
+library(scsf)
+#> Loading required package: sc
 nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
-#> Reading layer `nc.gpkg' from data source `C:\Users\mdsumner\Documents\R\win-library\3.3\sf\gpkg\nc.gpkg' using driver `GPKG'
+#> Reading layer `nc.gpkg' from data source `C:\Users\michae_sum\R\win-library\3.3\sf\gpkg\nc.gpkg' using driver `GPKG'
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -144,48 +58,48 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> # A tibble: 108 × 4
 #>    island_ ncoords_    path_  object_
 #>      <chr>    <int>    <chr>    <chr>
-#> 1        1       27 f814e00e 91db2675
-#> 2        1       26 e94f46a5 f5c43e1c
-#> 3        1       28 8e79dba1 fe221d31
-#> 4        1       26 18adb780 4e6c3197
-#> 5        2        7 c1787b13 4e6c3197
-#> 6        3        5 b24d1ed6 4e6c3197
-#> 7        1       34 3ee071cd dc5e51ee
-#> 8        1       22 74bff798 78eab270
-#> 9        1       24 8c06b31b 7de66e67
-#> 10       1       17 1e217777 0ec62c5e
+#> 1        1       27 b6858716 63dd35bd
+#> 2        1       26 7041939c b0047718
+#> 3        1       28 2ac2ca27 2b8204dc
+#> 4        1       26 fc3c6733 2dd07a2d
+#> 5        2        7 4eeff8a7 2dd07a2d
+#> 6        3        5 92740a05 2dd07a2d
+#> 7        1       34 45be3642 aa322ea0
+#> 8        1       22 7978402d 63558e1c
+#> 9        1       24 8394a84b 5ca9e92f
+#> 10       1       17 784ed393 e1d0b144
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 × 3
 #>           x_       y_  vertex_
 #>        <dbl>    <dbl>    <chr>
-#> 1  -81.47276 36.23436 d229b8e9
-#> 2  -81.54084 36.27251 03b47fa4
-#> 3  -81.56198 36.27359 130b212c
-#> 4  -81.63306 36.34069 a372f0fc
-#> 5  -81.74107 36.39178 d0ef9a07
-#> 6  -81.69828 36.47178 e5f82dd2
-#> 7  -81.70280 36.51934 20506141
-#> 8  -81.67000 36.58965 65bbae28
-#> 9  -81.34530 36.57286 90c22618
-#> 10 -81.34754 36.53791 4f5bd053
+#> 1  -81.47276 36.23436 7f6a781d
+#> 2  -81.54084 36.27251 39176cf3
+#> 3  -81.56198 36.27359 8bdc74ea
+#> 4  -81.63306 36.34069 0b16076e
+#> 5  -81.74107 36.39178 7df546ec
+#> 6  -81.69828 36.47178 2e6c7505
+#> 7  -81.70280 36.51934 37e6d21f
+#> 8  -81.67000 36.58965 c1951377
+#> 9  -81.34530 36.57286 cdaafe7e
+#> 10 -81.34754 36.53791 3febedd9
 #> # ... with 1,245 more rows
 #> 
 #> $path_link_vertex
 #> # A tibble: 2,529 × 2
 #>       path_  vertex_
 #>       <chr>    <chr>
-#> 1  f814e00e d229b8e9
-#> 2  f814e00e 03b47fa4
-#> 3  f814e00e 130b212c
-#> 4  f814e00e a372f0fc
-#> 5  f814e00e d0ef9a07
-#> 6  f814e00e e5f82dd2
-#> 7  f814e00e 20506141
-#> 8  f814e00e 65bbae28
-#> 9  f814e00e 90c22618
-#> 10 f814e00e 4f5bd053
+#> 1  b6858716 7f6a781d
+#> 2  b6858716 39176cf3
+#> 3  b6858716 8bdc74ea
+#> 4  b6858716 0b16076e
+#> 5  b6858716 7df546ec
+#> 6  b6858716 2e6c7505
+#> 7  b6858716 37e6d21f
+#> 8  b6858716 c1951377
+#> 9  b6858716 cdaafe7e
+#> 10 b6858716 3febedd9
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -239,22 +153,22 @@ str(iw)
 #>  $ object          :Classes 'tbl_df', 'tbl' and 'data.frame':    6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object_ : chr [1:6] "28fdf474" "94bb0383" "4e3013b6" "935c13a2" ...
+#>   ..$ object_ : chr [1:6] "f2b878f8" "64c48774" "391df1d7" "8e4e6a45" ...
 #>   ..- attr(*, "sf_column")= chr "geom"
 #>   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
 #>   .. ..- attr(*, "names")= chr [1:2] "ID" "Province"
 #>  $ path            :Classes 'tbl_df', 'tbl' and 'data.frame':    189 obs. of  4 variables:
 #>   ..$ island_ : chr [1:189] "1" "1" "1" "1" ...
 #>   ..$ ncoords_: int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
-#>   ..$ path_   : chr [1:189] "1007035a" "944c5eb6" "69503010" "a353a957" ...
-#>   ..$ object_ : chr [1:189] "28fdf474" "94bb0383" "4e3013b6" "4e3013b6" ...
+#>   ..$ path_   : chr [1:189] "691d0867" "e925cbb0" "722f7884" "89d253dd" ...
+#>   ..$ object_ : chr [1:189] "f2b878f8" "64c48774" "391df1d7" "391df1d7" ...
 #>  $ vertex          :Classes 'tbl_df', 'tbl' and 'data.frame':    30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "23a73b66" "f1843042" "d44812b1" "94e1e977" ...
+#>   ..$ vertex_: chr [1:30835] "9ae3f2d9" "e3b1f406" "16d880fa" "36bb9cae" ...
 #>  $ path_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':    33644 obs. of  2 variables:
-#>   ..$ path_  : chr [1:33644] "1007035a" "1007035a" "1007035a" "1007035a" ...
-#>   ..$ vertex_: chr [1:33644] "23a73b66" "f1843042" "d44812b1" "94e1e977" ...
+#>   ..$ path_  : chr [1:33644] "691d0867" "691d0867" "691d0867" "691d0867" ...
+#>   ..$ vertex_: chr [1:33644] "9ae3f2d9" "e3b1f406" "16d880fa" "36bb9cae" ...
 #>  - attr(*, "class")= chr [1:2] "PATH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "path" "path_link_vertex" "vertex"
 
@@ -277,24 +191,3 @@ ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, grou
 ```
 
 ![](README-unnamed-chunk-5-2.png)
-
-Example - sf to SQLite and filtered-read
-----------------------------------------
-
-See scdb
-
-Primitives, the planar straight line graph and TopoJSON
--------------------------------------------------------
-
-(WIP see primitives-classes)
-
-``` r
-example(PRIMITIVE)
-```
-
-### Arc-node topoplogy
-
-``` r
-
-example(arc_node)
-```

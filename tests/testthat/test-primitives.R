@@ -10,9 +10,9 @@ test_that("primitives 1D", {
    st_as_sf() %>% expect_s3_class("sf")
 })
 
-library(maptools)
-data(wrld_simpl)
-nodes <- arc_node(PRIMITIVE(st_as_sf(wrld_simpl)))
+#library(maptools)
+#data(wrld_simpl)
+#nodes <- arc_node(PRIMITIVE(st_as_sf(wrld_simpl)))
 
 
 # 

@@ -2,7 +2,6 @@
 % Please edit documentation in R/path.r
 \name{sc_path}
 \alias{sc_path}
-\alias{sc_path}
 \alias{sc_path.sf}
 \alias{sc_path}
 \alias{sc_path.sfc}
@@ -20,10 +19,8 @@
 \alias{sc_path.MULTIPOINT}
 \alias{sc_path}
 \alias{sc_path.GEOMETRYCOLLECTION}
-\title{Path decomposition}
+\title{Common path forms.}
 \usage{
-sc_path(x, ...)
-
 \method{sc_path}{sf}(x, ...)
 
 \method{sc_path}{sfc}(x, ids = NULL, ...)
@@ -43,18 +40,19 @@ sc_path(x, ...)
 \method{sc_path}{GEOMETRYCOLLECTION}(x, ...)
 }
 \arguments{
-\item{x}{input object}
+\item{x}{simple features object}
 
-\item{...}{arguments passed to methods}
+\item{...}{arguments to methods}
 
 \item{ids}{object id, one for each object in the `sfc`}
 }
 \description{
-Start in the middle, and build the 'path-link-vertex' table.
+Paths.
 }
 \examples{
-data("sfzoo")
-lapply(sfzoo, sc_path)
+library(scsf)
+sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
+PATH(sf_dataset)
 sc_path(sf::st_sfc(sfzoo))
 sc_path(sf::st_sfc(sfzoo))
 sc_path(sfzoo$multipolygon)
@@ -64,8 +62,4 @@ sc_path(sfzoo$multilinestring)
 sc_path(sfzoo$point)
 sc_path(sfzoo$multipoint)
 sc_path(sfzoo$multipoint)
-}
-\seealso{
-`sc_coord` for the coordinates part of the model, `sc_object` for 
-the features, and `PATH` for the full model.
 }
