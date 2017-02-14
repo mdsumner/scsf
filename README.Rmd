@@ -12,10 +12,11 @@ knitr::opts_chunk$set(
 )
 ```
 
+[![Travis-CI Build Status](https://travis-ci.org/mdsumner/scsf.svg?branch=master)](https://travis-ci.org/mdsumner/scsf)
 
 # scsf
 
-
+Convert simple features to a generic common form that is more general and can be used for a wide variety of data structures. 
 
 ## Example - sf to ggplot2 round trip
 

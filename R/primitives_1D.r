@@ -1,14 +1,16 @@
 #' Arc node topology for simple features. 
-#' @name arc_node
-#' @importFrom sc arc_node
+#' @name sc_node
+#' @param x input simple features object
+#' @param ... arguments for methods
+#' @importFrom sc sc_node PRIMITIVE
 #' @export
 #' @examples
 #' x <- sf::st_read(system.file("extdata/file.geojson", package= "sc"))
-#' arc_node(x)  ## get the nodes
+#' sc_node(x)  ## get the nodes
 #' ## now get the arcs (should the functions be called arc() and node()?)
 
-arc_node.sf <- function(x, ...) {
-  arc_node(PRIMITIVE(x))
+sc_node.sf <- function(x, ...) {
+  sc_node(sc::PRIMITIVE(x))
 }
 
 
