@@ -1,3 +1,4 @@
+#' Arc node topology for simple features. 
 #' @name arc_node
 #' @importFrom sc arc_node
 #' @export
