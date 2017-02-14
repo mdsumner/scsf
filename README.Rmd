@@ -18,6 +18,9 @@ knitr::opts_chunk$set(
 
 Convert simple features to a generic common form that is more general and can be used for a wide variety of data structures. 
 
+This is *work in progress* and at a very early stage. More to come. 
+
+
 ## Example - sf to ggplot2 round trip
 
 ```{r}
