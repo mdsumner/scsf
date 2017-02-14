@@ -1,3 +1,15 @@
+#' @name arc_node
+#' @importFrom sc arc_node
+#' @export
+#' @examples
+#' x <- sf::st_read(system.file("extdata/file.geojson", package= "sc"))
+#' arc_node(x)  ## get the nodes
+#' ## now get the arcs (should the functions be called arc() and node()?)
+
+arc_node.sf <- function(x, ...) {
+  arc_node(PRIMITIVE(x))
+}
+
 
 #' Recompose `sf` simple features from `PRIMITIVE`` models. 
 #'
