@@ -52,3 +52,28 @@ st_as_sf.PRIMITIVE <- function(x, ...) {
   sfd[["geometry"]] <- sf::st_sfc(ol)
   sf::st_as_sf(sfd)
 }
+
+
+sf <- function(x) UseMethod("sf")
+sf.PRIMITIVE <- function(x) {
+  # df <- sc_object(x)
+  g <-  x[["segment"]] %>% 
+    split(.$segment_) %>% 
+    purrr::map(function(segdf) {
+      dplyr::inner_join(segdf %>% dplyr::rename(vertex_ = .vertex0), x[["vertex"]], "vertex_") %>% 
+        dplyr::transmute(x0 = x_, y0 = y_, vertex_ = .vertex1) %>% 
+        dplyr::inner_join(x[["vertex"]], "vertex_") %>% dplyr::select(x0, y0, x_, y_) %>% 
+        unlist() %>% 
+        matrix(ncol = 2)  %>%  t() %>% 
+        sf::st_linestring(dim = "XY")
+      
+    }
+    )
+  d <- x[["segment"]] %>% dplyr::select(path_)
+  d[["geometry"]] <- g[x[["segment"]][["segment_"]]]
+  d <- d %>% dplyr::group_by(path_) %>% tidyr::nest()
+  d[["geometry"]] <- d[["data"]] %>% purrr::map(function(x) st_polygonize(st_union(st_geometrycollection(as.list(x$geometry)))))  %>% st_sfc()
+  
+  d[["data"]] <- NULL
+  st_as_sf(d)
+}
