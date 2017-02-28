@@ -17,6 +17,6 @@ Arc node topology for simple features.
 }
 \examples{
 x <- sf::st_read(system.file("extdata/file.geojson", package= "sc"))
-sc_node(x)  ## get the nodes
+#sc_node(x)  ## get the nodes
 ## now get the arcs (should the functions be called arc() and node()?)
 }

@@ -34,3 +34,4 @@ test_that("joins are valid", {
   PATH(nc) %>% inner_cascade() %>% 
     expect_s3_class("tbl_df")
 })
+
