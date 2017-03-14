@@ -1,6 +1,6 @@
 
 #' @importFrom tibble tibble
-sc_atom <- function(x, ...) tibble::tibble(ncoords_= nrow(x), path_ = sc_rand())
+sc_atom <- function(x, ...) tibble::tibble(ncoords_= nrow(x), path_ = sc_uid())
 sc_list <- function(x) dplyr::bind_rows(lapply(x, sc_atom))
 
 ## infix sugar for if (is.null)
@@ -14,7 +14,7 @@ sc_list <- function(x) dplyr::bind_rows(lapply(x, sc_atom))
 #' 
 #' @param x simple features object
 #' @param ... arguments to methods
-#' @importFrom sc sc_path sc_rand
+#' @importFrom sc sc_path sc_uid
 #' @importFrom sf st_geometry
 #' @name sc_path
 #' @export
@@ -76,7 +76,7 @@ sc_path.POINT <- function(x, ...) sc_atom(matrix(x, nrow = 1L))
 #' @export
 #' @examples 
 #' sc_path(sfzoo$multipoint)
-sc_path.MULTIPOINT <- function(x, ...) tibble::tibble(ncoords_ = 1, path_ = sc_rand(n = nrow(x)))
+sc_path.MULTIPOINT <- function(x, ...) tibble::tibble(ncoords_ = 1, path_ = sc_uid(n = nrow(x)))
 #' @name sc_path
 #' @export
 #' @examples 
