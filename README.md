@@ -14,10 +14,11 @@ Example - sf to ggplot2 round trip
 
 ``` r
 library(sf)
+#> Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3
 ## a MULTIPOLYGON layer
 nc = st_read(system.file("shape/nc.shp", package="sf"))
-#> Reading layer `nc' from data source `C:\Users\mdsumner\Documents\R\win-library\3.3\sf\shape\nc.shp' using driver `ESRI Shapefile'
-#> converted into: MULTIPOLYGON
+#> Reading layer `nc' from data source `/usr/local/lib/R/site-library/sf/shape/nc.shp' using driver `ESRI Shapefile'
+#> converted into: POLYGON
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -30,8 +31,10 @@ The common form is the entity tables, objects, paths, vertices and a link table 
 
 ``` r
 library(scsf)
+#> Loading required package: sc
 nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
-#> Reading layer `nc.gpkg' from data source `C:\Users\mdsumner\Documents\R\win-library\3.3\sf\gpkg\nc.gpkg' using driver `GPKG'
+#> Reading layer `nc.gpkg' from data source `/usr/local/lib/R/site-library/sf/gpkg/nc.gpkg' using driver `GPKG'
+#> converted into: MULTIPOLYGON
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -42,68 +45,68 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 
 (bmodel <- PATH(nc))
 #> $object
-#> # A tibble: 100 × 15
+#> # A tibble: 100 x 15
 #>     AREA PERIMETER CNTY_ CNTY_ID        NAME   FIPS FIPSNO CRESS_ID BIR74
 #>    <dbl>     <dbl> <dbl>   <dbl>      <fctr> <fctr>  <dbl>    <int> <dbl>
-#> 1  0.114     1.442  1825    1825        Ashe  37009  37009        5  1091
-#> 2  0.061     1.231  1827    1827   Alleghany  37005  37005        3   487
-#> 3  0.143     1.630  1828    1828       Surry  37171  37171       86  3188
-#> 4  0.070     2.968  1831    1831   Currituck  37053  37053       27   508
-#> 5  0.153     2.206  1832    1832 Northampton  37131  37131       66  1421
-#> 6  0.097     1.670  1833    1833    Hertford  37091  37091       46  1452
-#> 7  0.062     1.547  1834    1834      Camden  37029  37029       15   286
-#> 8  0.091     1.284  1835    1835       Gates  37073  37073       37   420
-#> 9  0.118     1.421  1836    1836      Warren  37185  37185       93   968
+#>  1 0.114     1.442  1825    1825        Ashe  37009  37009        5  1091
+#>  2 0.061     1.231  1827    1827   Alleghany  37005  37005        3   487
+#>  3 0.143     1.630  1828    1828       Surry  37171  37171       86  3188
+#>  4 0.070     2.968  1831    1831   Currituck  37053  37053       27   508
+#>  5 0.153     2.206  1832    1832 Northampton  37131  37131       66  1421
+#>  6 0.097     1.670  1833    1833    Hertford  37091  37091       46  1452
+#>  7 0.062     1.547  1834    1834      Camden  37029  37029       15   286
+#>  8 0.091     1.284  1835    1835       Gates  37073  37073       37   420
+#>  9 0.118     1.421  1836    1836      Warren  37185  37185       93   968
 #> 10 0.124     1.428  1837    1837      Stokes  37169  37169       85  1612
 #> # ... with 90 more rows, and 6 more variables: SID74 <dbl>, NWBIR74 <dbl>,
 #> #   BIR79 <dbl>, SID79 <dbl>, NWBIR79 <dbl>, object_ <chr>
 #> 
 #> $path
-#> # A tibble: 108 × 4
+#> # A tibble: 108 x 4
 #>    island_ ncoords_    path_  object_
 #>      <chr>    <int>    <chr>    <chr>
-#> 1        1       27 05a4f068 7ec9b0ec
-#> 2        1       26 9a1e745e dfd4d020
-#> 3        1       28 72c0750f d9424285
-#> 4        1       26 9eb0add0 37dbc2b6
-#> 5        2        7 1152824c 37dbc2b6
-#> 6        3        5 cdcf32f2 37dbc2b6
-#> 7        1       34 0ef019c1 e9637f81
-#> 8        1       22 728c0bb2 ba8cbdc9
-#> 9        1       24 992e7feb 34e45af3
-#> 10       1       17 7a53e177 eff1026f
+#>  1       1       27 d3be451c 1b8cf77f
+#>  2       1       26 20a7d8a0 40c57133
+#>  3       1       28 e7705f8b 704e328d
+#>  4       1       26 f8ae4d8a b16bcb2d
+#>  5       2        7 7622ecd6 b16bcb2d
+#>  6       3        5 ad85374e b16bcb2d
+#>  7       1       34 196e70a1 b1b7b110
+#>  8       1       22 f877cc02 0b60f822
+#>  9       1       24 93e0b7a2 7dcc3b23
+#> 10       1       17 00210345 475f7ecd
 #> # ... with 98 more rows
 #> 
 #> $vertex
-#> # A tibble: 1,255 × 3
+#> # A tibble: 1,255 x 3
 #>           x_       y_  vertex_
 #>        <dbl>    <dbl>    <chr>
-#> 1  -81.47276 36.23436 8c9befe3
-#> 2  -81.54084 36.27251 d806a1f2
-#> 3  -81.56198 36.27359 21894c9a
-#> 4  -81.63306 36.34069 234911f1
-#> 5  -81.74107 36.39178 6a05611c
-#> 6  -81.69828 36.47178 e1669972
-#> 7  -81.70280 36.51934 dea326d5
-#> 8  -81.67000 36.58965 6e51edcf
-#> 9  -81.34530 36.57286 a7b36fc8
-#> 10 -81.34754 36.53791 84cbacf0
+#>  1 -81.47276 36.23436 d9746e54
+#>  2 -81.54084 36.27251 016c760e
+#>  3 -81.56198 36.27359 99e360c2
+#>  4 -81.63306 36.34069 1b370708
+#>  5 -81.74107 36.39178 e7d112d5
+#>  6 -81.69828 36.47178 988b387c
+#>  7 -81.70280 36.51934 c8a72ecd
+#>  8 -81.67000 36.58965 e3c76c3f
+#>  9 -81.34530 36.57286 09afabbd
+#> 10 -81.34754 36.53791 81922b07
 #> # ... with 1,245 more rows
 #> 
 #> $path_link_vertex
-#> # A tibble: 2,529 × 2
+#> # A tibble: 2,529 x 2
 #>       path_  vertex_
 #>       <chr>    <chr>
-#> 1  05a4f068 8c9befe3
-#> 2  05a4f068 d806a1f2
-#> 3  05a4f068 21894c9a
-#> 4  05a4f068 234911f1
-#> 5  05a4f068 6a05611c
-#> 6  05a4f068 e1669972
-#> 7  05a4f068 dea326d5
-#> 8  05a4f068 6e51edcf
-#> 9  05a4f068 a7b36fc8
-#> 10 05a4f068 84cbacf0
+#>  1 d3be451c d9746e54
+#>  2 d3be451c 016c760e
+#>  3 d3be451c 99e360c2
+#>  4 d3be451c 1b370708
+#>  5 d3be451c e7d112d5
+#>  6 d3be451c 988b387c
+#>  7 d3be451c c8a72ecd
+#>  8 d3be451c e3c76c3f
+#>  9 d3be451c 09afabbd
+#> 10 d3be451c 81922b07
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -125,6 +128,14 @@ inner_cascade <- function(x) {
 
 ## this just joins everything back together in one big fortify table
 library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 tab <- bmodel  %>% inner_cascade()
 #> Joining, by = "object_"
 #> Joining, by = "path_"
@@ -149,22 +160,22 @@ str(iw)
 #>  $ object          :Classes 'tbl_df', 'tbl' and 'data.frame':    6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object_ : chr [1:6] "76b96c01" "ca2c35b2" "0624969e" "e7266727" ...
+#>   ..$ object_ : chr [1:6] "ae741ed6" "9d48199e" "2bc7fdf9" "fd12f8c2" ...
 #>   ..- attr(*, "sf_column")= chr "geom"
 #>   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
 #>   .. ..- attr(*, "names")= chr [1:2] "ID" "Province"
 #>  $ path            :Classes 'tbl_df', 'tbl' and 'data.frame':    189 obs. of  4 variables:
 #>   ..$ island_ : chr [1:189] "1" "1" "1" "1" ...
 #>   ..$ ncoords_: int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
-#>   ..$ path_   : chr [1:189] "c1d3f7a9" "f26e987b" "f9ad6f35" "eeee3582" ...
-#>   ..$ object_ : chr [1:189] "76b96c01" "ca2c35b2" "0624969e" "0624969e" ...
+#>   ..$ path_   : chr [1:189] "dd40c21b" "ad6d9413" "34b974d2" "38b0e390" ...
+#>   ..$ object_ : chr [1:189] "ae741ed6" "9d48199e" "2bc7fdf9" "2bc7fdf9" ...
 #>  $ vertex          :Classes 'tbl_df', 'tbl' and 'data.frame':    30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "285e6c3f" "be2c6640" "3e1f06aa" "62ea5c50" ...
+#>   ..$ vertex_: chr [1:30835] "b54367ae" "06d6dd25" "f910cc41" "166d95ff" ...
 #>  $ path_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':    33644 obs. of  2 variables:
-#>   ..$ path_  : chr [1:33644] "c1d3f7a9" "c1d3f7a9" "c1d3f7a9" "c1d3f7a9" ...
-#>   ..$ vertex_: chr [1:33644] "285e6c3f" "be2c6640" "3e1f06aa" "62ea5c50" ...
+#>   ..$ path_  : chr [1:33644] "dd40c21b" "dd40c21b" "dd40c21b" "dd40c21b" ...
+#>   ..$ vertex_: chr [1:33644] "b54367ae" "06d6dd25" "f910cc41" "166d95ff" ...
 #>  - attr(*, "class")= chr [1:2] "PATH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "path" "path_link_vertex" "vertex"
 
