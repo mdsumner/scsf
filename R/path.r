@@ -17,6 +17,7 @@ sc_list <- function(x) dplyr::bind_rows(lapply(x, sc_atom))
 #' @importFrom sc sc_path sc_uid
 #' @name sc_path
 #' @export
+#' @export sc_path
 #' @examples
 #' library(scsf)
 #' #sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
