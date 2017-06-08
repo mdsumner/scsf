@@ -1,5 +1,7 @@
 # scsf dev
 
+* remove dependence on sf
+
 * replace sc_rand with sc_uid from sc
 
 * several updates to better support the sc workers and sf round-trip

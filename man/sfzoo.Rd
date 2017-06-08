@@ -13,6 +13,6 @@ A list with basic examples of each type of simple feature.
 
 The gc contains the zoo.  
  @examples 
- sf::st_sfc(sfzoo)
- sf::st_sfc(sfgc)
+# sf::st_sfc(sfzoo)
+# sf::st_sfc(sfgc)
 }

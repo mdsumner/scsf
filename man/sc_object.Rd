@@ -17,9 +17,9 @@ The objects are the front end entities, the usual "GIS contract" objects,
 the features.
 }
 \examples{
-library(sf)
-nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-sc_object(nc)
+#library(sf)
+#nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+#sc_object(nc)
 }
 \seealso{
 `sc_coord` for the coordinates part of the model, `sc_path` for 

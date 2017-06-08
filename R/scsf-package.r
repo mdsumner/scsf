@@ -19,8 +19,8 @@ NULL
 #' 
 #'  The gc contains the zoo.  
 #'  @examples 
-#'  sf::st_sfc(sfzoo)
-#'  sf::st_sfc(sfgc)
+#' # sf::st_sfc(sfzoo)
+#' # sf::st_sfc(sfgc)
 #' @aliases sfgc sfzoo
 #' @name sfzoo
 #' @docType data

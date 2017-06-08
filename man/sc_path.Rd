@@ -51,10 +51,10 @@ Paths.
 }
 \examples{
 library(scsf)
-sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
-PATH(sf_dataset)
-sc_path(sf::st_sfc(sfzoo))
-sc_path(sf::st_sfc(sfzoo))
+#sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
+#PATH(sf_dataset)
+#sc_path(sf::st_sfc(sfzoo))
+#sc_path(sf::st_sfc(sfzoo))
 sc_path(sfzoo$multipolygon)
 sc_path(sfzoo$polygon)
 sc_path(sfzoo$linestring)

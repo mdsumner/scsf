@@ -46,9 +46,9 @@ has the information about the original grouping.
 }
 \examples{
 data("sfzoo")
-sc_coord(sf::st_sfc(sfzoo))
-lapply(sfzoo, sc_coord)
-sc_coord(sf::st_sfc(sfzoo))
+#sc_coord(sf::st_sfc(sfzoo))
+# lapply(sfzoo, sc_coord)
+#sc_coord(sf::st_sfc(sfzoo))
 }
 \seealso{
 `sc_path` for the central part of the model, `sc_object` for 

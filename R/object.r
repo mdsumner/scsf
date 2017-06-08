@@ -12,9 +12,9 @@
 #' @importFrom sc sc_object
 #' @export
 #' @examples 
-#' library(sf)
-#' nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
-#' sc_object(nc)
+#' #library(sf)
+#' #nc <-  st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
+#' #sc_object(nc)
 sc_object.sf <- function(x, ...) {
   tibble::as_tibble(.st_set_geometry(x))
 }
@@ -23,9 +23,12 @@ sc_object.sf <- function(x, ...) {
 
 ## a function sf should have
 ## to drop the spatial stuff
-#' @importFrom sf st_geometry<-
 .st_set_geometry <- function(x, value = NULL) {
   #st_geometry(x) <- value
   x[[attr(x, "sf_column")]] <- NULL
   as.data.frame(x)
+}
+
+.st_get_geometry <- function(x) {
+  x[[attr(x, "sf_column")]]
 }

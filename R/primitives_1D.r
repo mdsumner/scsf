@@ -5,7 +5,7 @@
 #' @importFrom sc sc_node PRIMITIVE
 #' @export
 #' @examples
-#' x <- sf::st_read(system.file("extdata/file.geojson", package= "sc"))
+#'# x <- sf::st_read(system.file("extdata/file.geojson", package= "sc"))
 #' #sc_node(x)  ## get the nodes
 #' ## now get the arcs (should the functions be called arc() and node()?)
 
@@ -30,7 +30,6 @@ sc_node.sf <- function(x, ...) {
 #' plot(sf(prim))
 #' }
 #' }
-#' @importFrom sf st_as_sf st_multipolygon st_sfc 
 #' @importFrom dplyr select_ inner_join %>% 
 #' @name sf
 #' @export
@@ -53,10 +52,14 @@ sf.PRIMITIVE <- function(x, ...) {
  
    ol[[i_obj]] <- structure(list(unlist(brl, recursive = FALSE)), class = c("XY", "MULTIPOLYGON", "sfg"))
   }
+  bb <- c(range(x$vertex$x_), range(x$vertex$y_))[c(1, 3, 2, 4)]
+  na_crs <- structure(list(epsg = NA_integer_, proj4string = NA_character_), class = "crs")
+  names(bb) <- structure(c("xmin", "ymin", "xmax", "ymax"), crs = na_crs)
   ## TODO: need round-trip crs
-  sfd <- as.data.frame(x$object)
-  sfd[["geometry"]] <- sf::st_sfc(ol)
-  sf::st_as_sf(sfd)
+  sfd <- tibble::as_tibble(x$object)
+  #sfd[["geometry"]] <- sf::st_sfc(ol)
+  sfd[["geometry"]] <- structure(ol, class = c("sfc_MULTIPOLYGON", "sfc"  ), n_empty = 0, precision = 0, crs = na_crs, bbox = bb)
+  structure(sfd, sf_column = "geometry", agr = factor(NA, c("constant", "aggregate", "identity")), class = c("sf", class(sfd)))
 }
 #' @name sf
 #' @export

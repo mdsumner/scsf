@@ -14,12 +14,12 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
+    sf,
     covr
 RoxygenNote: 6.0.1
 Imports: dplyr,
     ids,
     purrr,
-    sf,
     tibble
 Remotes: mdsumner/sc
 VignetteBuilder: knitr

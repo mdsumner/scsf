@@ -28,22 +28,21 @@ sfcoords <- function(x, ...) tibble::as_tibble(m_v(x))
 #' @param ... arguments passed to methods
 #' @seealso `sc_path` for the central part of the model, `sc_object` for 
 #' the features, and `PATH` for the full model. 
-#' @importFrom sf st_geometry
 #' @importFrom sc sc_coord
 #' @name sc_coord
 #' @export
 #' @examples
 #' data("sfzoo")
-#' sc_coord(sf::st_sfc(sfzoo))
-#' lapply(sfzoo, sc_coord)
+#' #sc_coord(sf::st_sfc(sfzoo))
+#'# lapply(sfzoo, sc_coord)
 sc_coord.sf <- function(x, ...) {
-  sc_coord(sf::st_geometry(x), ...)
+  sc_coord(.st_get_geometry(x), ...)
 }
 #' @importFrom dplyr bind_rows
 #' @name sc_coord
 #' @export
 #' @examples 
-#' sc_coord(sf::st_sfc(sfzoo))
+#' #sc_coord(sf::st_sfc(sfzoo))
 sc_coord.sfc <- function(x,  ...) {
   x <- lapply(x, sc_coord)
   dplyr::bind_rows(x)

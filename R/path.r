@@ -15,16 +15,15 @@ sc_list <- function(x) dplyr::bind_rows(lapply(x, sc_atom))
 #' @param x simple features object
 #' @param ... arguments to methods
 #' @importFrom sc sc_path sc_uid
-#' @importFrom sf st_geometry
 #' @name sc_path
 #' @export
 #' @examples
 #' library(scsf)
-#' sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
-#' PATH(sf_dataset)
-#' sc_path(sf::st_sfc(sfzoo))
+#' #sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
+#' #PATH(sf_dataset)
+#' #sc_path(sf::st_sfc(sfzoo))
 sc_path.sf <- function(x, ...) {
-  sc_path(sf::st_geometry(x), ...)
+  sc_path(.st_get_geometry(x), ...)
 }
 
 #' @param ids object id, one for each object in the `sfc`
@@ -33,7 +32,7 @@ sc_path.sf <- function(x, ...) {
 #' @name sc_path
 #' @export
 #' @examples 
-#' sc_path(sf::st_sfc(sfzoo))
+#' #sc_path(sf::st_sfc(sfzoo))
 sc_path.sfc <- function(x, ids = NULL, ...) {
   x <- lapply(x, sc_path)
   if (!is.null(ids)) {
