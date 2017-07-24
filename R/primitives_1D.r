@@ -45,7 +45,7 @@ sf.PRIMITIVE <- function(x, ...) {
     for (i_br in seq(nrow(path))) {
   # this all needs revisit based on what kind of simple feature we have
       br_0 <-   inner_join(inner_join(path[i_br, ], x[["path_link_vertex"]], "path_"), x[["vertex"]], "vertex_")
-      br_0 <- split(br_0, br_0[["island_"]])
+      br_0 <- split(br_0, br_0[["path_"]])
 
      brl[[i_br]] <- lapply(br_0, function(aa) as.matrix(aa[c(seq_len(nrow(aa)), 1L), c("x_", "y_")]))
     }
