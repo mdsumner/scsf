@@ -1,4 +1,4 @@
-sf_to_gris_names <- 
+#sf_to_gris_names <- 
   #names(gtab) <- sf_to_gris_names(names(gtab))
   
   m_v <- function(x) {
@@ -16,7 +16,7 @@ sc_geom_names <- function(gnames) {
   gnames <- gsub("^type$", "type_", gnames)
   gnames
 }
-sfcoords <- function(x, ...) tibble::as_tibble(m_v(x))
+sfcoords <- function(x, ...) faster_as_tibble(m_v(x))
 
 
 #' Coordinate decomposition

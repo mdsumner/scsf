@@ -1,6 +1,6 @@
 
 #' @importFrom tibble tibble
-sc_atom <- function(x, ...) tibble::tibble(ncoords_= nrow(x), path_ = sc_uid())
+sc_atom <- function(x, ...) faster_as_tibble(list(ncoords_= nrow(x), path_ = sc_uid()))
 sc_list <- function(x) dplyr::bind_rows(lapply(x, sc_atom))
 
 ## infix sugar for if (is.null)
@@ -38,7 +38,7 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
   x <- lapply(x, sc_path)
   if (!is.null(ids)) {
     stopifnot(length(ids) == length(x))
-    x <- lapply(seq_along(x), function(a) dplyr::bind_cols(x[[a]], tibble::tibble(object_ = rep(ids[a], nrow(x[[a]])))))
+    x <- lapply(seq_along(x), function(a) dplyr::bind_cols(x[[a]], faster_as_tibble(list(object_ = rep(ids[a], nrow(x[[a]]))))))
   }
   dplyr::bind_rows(x)
 }
@@ -76,7 +76,7 @@ sc_path.POINT <- function(x, ...) sc_atom(matrix(x, nrow = 1L))
 #' @export
 #' @examples 
 #' sc_path(sfzoo$multipoint)
-sc_path.MULTIPOINT <- function(x, ...) tibble::tibble(ncoords_ = 1, path_ = sc_uid(n = nrow(x)))
+sc_path.MULTIPOINT <- function(x, ...) faster_as_tibble(list(ncoords_ = rep(1, nrow(x)), path_ = sc_uid(n = nrow(x))))
 #' @name sc_path
 #' @export
 #' @examples 

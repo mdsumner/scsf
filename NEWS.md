@@ -1,5 +1,7 @@
 # scsf dev
 
+* speed up tibble creation
+
 * remove dependence on sf
 
 * replace sc_rand with sc_uid from sc

@@ -56,7 +56,7 @@ sf.PRIMITIVE <- function(x, ...) {
   na_crs <- structure(list(epsg = NA_integer_, proj4string = NA_character_), class = "crs")
   names(bb) <- structure(c("xmin", "ymin", "xmax", "ymax"), crs = na_crs)
   ## TODO: need round-trip crs
-  sfd <- tibble::as_tibble(x$object)
+  sfd <- faster_as_tibble(x$object)
   #sfd[["geometry"]] <- sf::st_sfc(ol)
   sfd[["geometry"]] <- structure(ol, class = c("sfc_MULTIPOLYGON", "sfc"  ), n_empty = 0, precision = 0, crs = na_crs, bbox = bb)
   structure(sfd, sf_column = "geometry", agr = factor(NA, c("constant", "aggregate", "identity")), class = c("sf", class(sfd)))
