@@ -53,12 +53,14 @@ sc_coord.sfc <- function(x,  ...) {
 sc_coord.MULTIPOLYGON <- function(x, ...) {
   colnames <- sc_geom_names(sf_geom_names(x))
   setNames(dplyr::bind_rows(lapply(x, function(y) dplyr::bind_rows(lapply(y, sfcoords)))), colnames)
+  #setNames(purrr::map_df(x, function(y) purrr::map_df(y, sfcoords)), colnames)
 }
 #' @name sc_coord
 #' @export
 sc_coord.POLYGON <- function(x, ...) {
   colnames <- sc_geom_names(sf_geom_names(x))
   setNames(dplyr::bind_rows(lapply(x, sfcoords)), colnames)
+ # setNames(purrr:map_df(x, sfcoords), colnames)
 }
 #' @name sc_coord
 #' @export

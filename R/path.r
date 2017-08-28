@@ -1,7 +1,9 @@
 
-#' @importFrom tibble tibble
+#' @importFrom purrr map_df
 sc_atom <- function(x, ...) faster_as_tibble(list(ncoords_= nrow(x), path_ = sc_uid()))
-sc_list <- function(x) dplyr::bind_rows(lapply(x, sc_atom))
+sc_list <- function(x) {
+  dplyr::bind_rows(lapply(x, sc_atom))
+}
 
 ## infix sugar for if (is.null)
 "%||%" <- function(a, b) {
