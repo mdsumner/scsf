@@ -1,5 +1,7 @@
 # scsf dev
 
+* use decomposition with matrices from gibble for speed up
+
 * speed up tibble creation
 
 * remove dependence on sf

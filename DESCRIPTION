@@ -18,8 +18,9 @@ Suggests:
     covr
 RoxygenNote: 6.0.1
 Imports: dplyr,
+    gibble (>= 0.0.1),
     ids,
     purrr,
     tibble
-Remotes: mdsumner/sc
+Remotes: mdsumner/sc, mdsumner/gibble
 VignetteBuilder: knitr
