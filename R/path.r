@@ -4,11 +4,11 @@ sc_atom <- function(x, ...) faster_as_tibble(list(ncoords_= nrow(x), path_ = sc_
 sc_list <- function(x) {
   dplyr::bind_rows(lapply(x, sc_atom))
 }
-
-## infix sugar for if (is.null)
-"%||%" <- function(a, b) {
-  if (is.null(a)) b else a
-}
+#sc_atom <- function(x, ...) UseMethod("sc_atom")
+#sc_atom.matrix <- function(x, ...) cbind(nrow(x), ncol(x))
+#sc_atom.list <- function(x, ...) lapply(x, sc_atom)
+#sc_atom_mat <- function(x, ...) nrow(x)
+#sc_list_mat <- function(x) unlist(lapply(x, sc_atom_mat))
 
 #' Common path forms. 
 #' 
@@ -37,13 +37,22 @@ sc_path.sf <- function(x, ...) {
 #' @examples 
 #' #sc_path(sf::st_sfc(sfzoo))
 sc_path.sfc <- function(x, ids = NULL, ...) {
-  x <- lapply(x, sc_path)
-  if (!is.null(ids)) {
-    stopifnot(length(ids) == length(x))
-    x <- lapply(seq_along(x), function(a) dplyr::bind_cols(x[[a]], faster_as_tibble(list(object_ = rep(ids[a], nrow(x[[a]]))))))
-  }
-  dplyr::bind_rows(x)
+  x <- gibble::gibble(x)
+  x[["path_"]] <- sc::sc_uid(nrow(x))
+  dplyr::rename(x, island_ = part, ncoords_ = nrow)
 }
+#   ## TODO record this somehow for roundtripping
+#   ## also have to know the class for the ncoord, ndim below
+#   classes <- lapply(x, class)
+#   
+#   x <- lapply(x, sc_path)
+#  # if (!is.null(ids)) {
+# #    stopifnot(length(ids) == length(x))
+# #    x <- lapply(seq_along(x), function(a) dplyr::bind_cols(x[[a]], faster_as_tibble(list(object_ = rep(ids[a], nrow(x[[a]]))))))
+# #  }
+#  tibble::as_tibble(structure(do.call(rbind, x), dimnames = c(list(NULL), list(c("ncoord", "ndim")))))
+
+
 #' @name sc_path
 #' @export
 #' @importFrom dplyr bind_rows mutate row_number
@@ -52,6 +61,7 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
 sc_path.MULTIPOLYGON <- function(x, ...) {
   dplyr::bind_rows(lapply(x, sc_list), .id = "island_") 
 }
+
 #' @name sc_path
 #' @export
 #' @examples 
@@ -78,15 +88,12 @@ sc_path.POINT <- function(x, ...) sc_atom(matrix(x, nrow = 1L))
 #' @export
 #' @examples 
 #' sc_path(sfzoo$multipoint)
-sc_path.MULTIPOINT <- function(x, ...) faster_as_tibble(list(ncoords_ = rep(1, nrow(x)), path_ = sc_uid(n = nrow(x))))
+sc_path.MULTIPOINT <- function(x, ...) sc_atom(unclass(x))
 #' @name sc_path
 #' @export
 #' @examples 
 #' sc_path(sfzoo$multipoint)
-sc_path.GEOMETRYCOLLECTION <- function(x, ...) dplyr::bind_rows(lapply(x, sc_path), .id = "collection_")
+sc_path.GEOMETRYCOLLECTION <- function(x, ...) lapply(x, sc_path)
 
 
-## infix sugar for if (is.null)
-"%||%" <- function(a, b) {
-  if (is.null(a)) b else a
-}
+
