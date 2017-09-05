@@ -39,7 +39,12 @@ sc_path.sf <- function(x, ...) {
 sc_path.sfc <- function(x, ids = NULL, ...) {
   x <- gibble::gibble(x)
   x[["path_"]] <- sc::sc_uid(nrow(x))
-  dplyr::rename(x, island_ = rlang::.data$part, ncoords_ = rlang::.data$nrow)
+  #dplyr::rename(x, island_ = rlang::.data$part, ncoords_ = rlang::.data$nrow)
+  x[["island_"]] <- x[["part"]]
+  x[["ncoords_"]] <- x[["nrow"]]
+  x[["part"]] <- NULL
+  x[["nrow"]] <- NULL
+  x
 }
 #   ## TODO record this somehow for roundtripping
 #   ## also have to know the class for the ncoord, ndim below
