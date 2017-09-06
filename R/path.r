@@ -39,14 +39,21 @@ sc_path.sf <- function(x, ids = NULL, ...) {
 sc_path.sfc <- function(x, ids = NULL, ...) {
   x <- gibble::gibble(x)
   if (is.null(ids)) {
-    ids <- sc::sc_uid(length(unique(x[["object"]])))
-  } 
-  x[["object"]] <- ids[x[["object"]]]
-  x[["path"]] <- sc::sc_uid(nrow(x))
-  #dplyr::rename(x, island_ = rlang::.data$part, ncoords_ = rlang::.data$nrow)
-  #x[["island_"]] <- x[["part"]]
+# <<<<<<< HEAD
+#     ids <- sc::sc_uid(length(unique(x[["object"]])))
+#   } 
+#   x[["object"]] <- ids[x[["object"]]]
+#   x[["path"]] <- sc::sc_uid(nrow(x))
+#   #dplyr::rename(x, island_ = rlang::.data$part, ncoords_ = rlang::.data$nrow)
+#   #x[["island_"]] <- x[["part"]]
+# =======
+    ids <- sc::sc_uid(nrow(x))
+  } else {
+    ids <- ids[x[["object"]]]
+  }
+  x[["path"]] <- ids
+  x[["object"]] <- sc::sc_uid(length(unique(x[["object"]])))[x[["object"]]]
   x[["ncoords_"]] <- x[["nrow"]]
-  #x[["part"]] <- NULL
   x[["nrow"]] <- NULL
   x
 }
