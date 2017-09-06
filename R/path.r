@@ -38,7 +38,11 @@ sc_path.sf <- function(x, ...) {
 #' #sc_path(sf::st_sfc(sfzoo))
 sc_path.sfc <- function(x, ids = NULL, ...) {
   x <- gibble::gibble(x)
-  if (is.null(ids)) ids <- sc::sc_uid(nrow(x))
+  if (is.null(ids)) {
+    ids <- sc::sc_uid(nrow(x))
+  } else {
+    ids <- ids[x[["object"]]]
+  }
   x[["path"]] <- ids
   #dplyr::rename(x, island_ = rlang::.data$part, ncoords_ = rlang::.data$nrow)
   #x[["island_"]] <- x[["part"]]
@@ -60,7 +64,11 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
 
 gibble_path <- function(x, ids = NULL, ...) {
   out <- gibble::gibble(x)
-  if (is.null(ids)) ids <- sc_uid(nrow(out))
+  if (is.null(ids)) {
+    ids <- sc_uid(nrow(out))
+  } else {
+    ids <- ids[out[["object"]]]
+  }
   dplyr::mutate(out, path = ids)
 }
 
