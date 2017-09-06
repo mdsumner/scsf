@@ -68,48 +68,48 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> # A tibble: 108 x 6
 #>     ncol         type subobject   object     path ncoords_
 #>    <int>        <chr>     <int>    <chr>    <chr>    <int>
-#>  1     2 MULTIPOLYGON         1 7bd00c9e 44a103a7       27
-#>  2     2 MULTIPOLYGON         1 5f37096a 7a6067fc       26
-#>  3     2 MULTIPOLYGON         1 5db6ca83 b2a4fa3f       28
-#>  4     2 MULTIPOLYGON         1 161e4449 23e051d0       26
-#>  5     2 MULTIPOLYGON         2 161e4449 b502a692        7
-#>  6     2 MULTIPOLYGON         3 161e4449 1a88a667        5
-#>  7     2 MULTIPOLYGON         1 8a5abd8f e2e33acb       34
-#>  8     2 MULTIPOLYGON         1 cb288810 eb4bb191       22
-#>  9     2 MULTIPOLYGON         1 a1113ca9 59226caa       24
-#> 10     2 MULTIPOLYGON         1 c115cb1f d58f97a6       17
+#>  1     2 MULTIPOLYGON         1 ff0d09e5 86f8959f       27
+#>  2     2 MULTIPOLYGON         1 566d4b11 6ded3ff5       26
+#>  3     2 MULTIPOLYGON         1 be21a51f c4c0189d       28
+#>  4     2 MULTIPOLYGON         1 f56ed37f f24a83be       26
+#>  5     2 MULTIPOLYGON         2 f56ed37f 345ad4f3        7
+#>  6     2 MULTIPOLYGON         3 f56ed37f 38acdaf6        5
+#>  7     2 MULTIPOLYGON         1 7fe51de5 806b86db       34
+#>  8     2 MULTIPOLYGON         1 1597150a 1f4dcdb7       22
+#>  9     2 MULTIPOLYGON         1 a0970bbf 4a31a480       24
+#> 10     2 MULTIPOLYGON         1 cba46cf6 5b80d4af       17
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 x 3
 #>           x_       y_  vertex_
 #>        <dbl>    <dbl>    <chr>
-#>  1 -81.47276 36.23436 70bb0a50
-#>  2 -81.54084 36.27251 206bd287
-#>  3 -81.56198 36.27359 ea7b6cc8
-#>  4 -81.63306 36.34069 d67d84d7
-#>  5 -81.74107 36.39178 6d288061
-#>  6 -81.69828 36.47178 247b4cb6
-#>  7 -81.70280 36.51934 e0dd0299
-#>  8 -81.67000 36.58965 c2310979
-#>  9 -81.34530 36.57286 f31060df
-#> 10 -81.34754 36.53791 6d03b30d
+#>  1 -81.47276 36.23436 21ce7d5d
+#>  2 -81.54084 36.27251 bb5ff789
+#>  3 -81.56198 36.27359 a9334bd1
+#>  4 -81.63306 36.34069 24926045
+#>  5 -81.74107 36.39178 7942039a
+#>  6 -81.69828 36.47178 1b217a64
+#>  7 -81.70280 36.51934 65e74838
+#>  8 -81.67000 36.58965 41feb74f
+#>  9 -81.34530 36.57286 c19baced
+#> 10 -81.34754 36.53791 cfc02537
 #> # ... with 1,245 more rows
 #> 
 #> $path_link_vertex
 #> # A tibble: 2,529 x 2
 #>        path  vertex_
 #>       <chr>    <chr>
-#>  1 44a103a7 70bb0a50
-#>  2 44a103a7 206bd287
-#>  3 44a103a7 ea7b6cc8
-#>  4 44a103a7 d67d84d7
-#>  5 44a103a7 6d288061
-#>  6 44a103a7 247b4cb6
-#>  7 44a103a7 e0dd0299
-#>  8 44a103a7 c2310979
-#>  9 44a103a7 f31060df
-#> 10 44a103a7 6d03b30d
+#>  1 86f8959f 21ce7d5d
+#>  2 86f8959f bb5ff789
+#>  3 86f8959f a9334bd1
+#>  4 86f8959f 24926045
+#>  5 86f8959f 7942039a
+#>  6 86f8959f 1b217a64
+#>  7 86f8959f 65e74838
+#>  8 86f8959f 41feb74f
+#>  9 86f8959f c19baced
+#> 10 86f8959f cfc02537
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -163,7 +163,7 @@ str(iw)
 #>  $ object          :Classes 'tbl_df', 'tbl' and 'data.frame':    6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object  : chr [1:6] "b2f43348" "7dda9a78" "9b4ac03d" "353b9b72" ...
+#>   ..$ object  : chr [1:6] "ed4d711f" "8e7eed64" "f1633b47" "c7d4500d" ...
 #>   ..- attr(*, "sf_column")= chr "geom"
 #>   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
 #>   .. ..- attr(*, "names")= chr [1:2] "ID" "Province"
@@ -171,16 +171,16 @@ str(iw)
 #>   ..$ ncol     : int [1:189] 2 2 2 2 2 2 2 2 2 2 ...
 #>   ..$ type     : chr [1:189] "MULTIPOLYGON" "MULTIPOLYGON" "MULTIPOLYGON" "MULTIPOLYGON" ...
 #>   ..$ subobject: int [1:189] 1 1 1 1 1 1 1 1 1 1 ...
-#>   ..$ object   : chr [1:189] "b2f43348" "7dda9a78" "9b4ac03d" "9b4ac03d" ...
-#>   ..$ path     : chr [1:189] "3340cf07" "a4246dd6" "283d3358" "467a50a3" ...
+#>   ..$ object   : chr [1:189] "ed4d711f" "8e7eed64" "f1633b47" "f1633b47" ...
+#>   ..$ path     : chr [1:189] "2c7ed73f" "83c02f16" "6493400c" "406dfd04" ...
 #>   ..$ ncoords_ : int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
 #>  $ vertex          :Classes 'tbl_df', 'tbl' and 'data.frame':    30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "7a07207b" "70c33671" "686dffb7" "12afa9b7" ...
+#>   ..$ vertex_: chr [1:30835] "cc1bd1ed" "79379051" "53bbfb6d" "b746c05b" ...
 #>  $ path_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':    33644 obs. of  2 variables:
-#>   ..$ path   : chr [1:33644] "3340cf07" "3340cf07" "3340cf07" "3340cf07" ...
-#>   ..$ vertex_: chr [1:33644] "7a07207b" "70c33671" "686dffb7" "12afa9b7" ...
+#>   ..$ path   : chr [1:33644] "2c7ed73f" "2c7ed73f" "2c7ed73f" "2c7ed73f" ...
+#>   ..$ vertex_: chr [1:33644] "cc1bd1ed" "79379051" "53bbfb6d" "b746c05b" ...
 #>  - attr(*, "class")= chr [1:2] "PATH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "path" "path_link_vertex" "vertex"
 
