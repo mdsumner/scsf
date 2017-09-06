@@ -44,10 +44,8 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
     ids <- ids[x[["object"]]]
   }
   x[["path"]] <- ids
-  #dplyr::rename(x, island_ = rlang::.data$part, ncoords_ = rlang::.data$nrow)
-  #x[["island_"]] <- x[["part"]]
+  x[["object"]] <- sc::sc_uid(length(unique(x[["object"]])))[x[["object"]]]
   x[["ncoords_"]] <- x[["nrow"]]
-  #x[["part"]] <- NULL
   x[["nrow"]] <- NULL
   x
 }
