@@ -14,11 +14,10 @@ Example - sf to ggplot2 round trip
 
 ``` r
 library(sf)
-#> Linking to GEOS 3.5.1, GDAL 2.1.2, proj.4 4.9.3
+#> Linking to GEOS 3.5.1, GDAL 2.2.1, proj.4 4.9.3
 ## a MULTIPOLYGON layer
 nc = st_read(system.file("shape/nc.shp", package="sf"))
-#> Reading layer `nc' from data source `/usr/local/lib/R/site-library/sf/shape/nc.shp' using driver `ESRI Shapefile'
-#> converted into: POLYGON
+#> Reading layer `nc' from data source `/perm_storage/home/mdsumner/R/x86_64-pc-linux-gnu-library/3.4/sf/shape/nc.shp' using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -32,9 +31,13 @@ The common form is the entity tables, objects, paths, vertices and a link table 
 ``` r
 library(scsf)
 #> Loading required package: sc
+#> 
+#> Attaching package: 'scsf'
+#> The following object is masked from 'package:sc':
+#> 
+#>     minimal_mesh
 nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
-#> Reading layer `nc.gpkg' from data source `/usr/local/lib/R/site-library/sf/gpkg/nc.gpkg' using driver `GPKG'
-#> converted into: MULTIPOLYGON
+#> Reading layer `nc.gpkg' from data source `/perm_storage/home/mdsumner/R/x86_64-pc-linux-gnu-library/3.4/sf/gpkg/nc.gpkg' using driver `GPKG'
 #> Simple feature collection with 100 features and 14 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -47,7 +50,7 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> $object
 #> # A tibble: 100 x 15
 #>     AREA PERIMETER CNTY_ CNTY_ID        NAME   FIPS FIPSNO CRESS_ID BIR74
-#>    <dbl>     <dbl> <dbl>   <dbl>      <fctr> <fctr>  <dbl>    <int> <dbl>
+#>  * <dbl>     <dbl> <dbl>   <dbl>      <fctr> <fctr>  <dbl>    <int> <dbl>
 #>  1 0.114     1.442  1825    1825        Ashe  37009  37009        5  1091
 #>  2 0.061     1.231  1827    1827   Alleghany  37005  37005        3   487
 #>  3 0.143     1.630  1828    1828       Surry  37171  37171       86  3188
@@ -59,54 +62,54 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #>  9 0.118     1.421  1836    1836      Warren  37185  37185       93   968
 #> 10 0.124     1.428  1837    1837      Stokes  37169  37169       85  1612
 #> # ... with 90 more rows, and 6 more variables: SID74 <dbl>, NWBIR74 <dbl>,
-#> #   BIR79 <dbl>, SID79 <dbl>, NWBIR79 <dbl>, object_ <chr>
+#> #   BIR79 <dbl>, SID79 <dbl>, NWBIR79 <dbl>, object <chr>
 #> 
 #> $path
-#> # A tibble: 108 x 4
-#>    island_ ncoords_    path_  object_
-#>      <chr>    <int>    <chr>    <chr>
-#>  1       1       27 e8327d00 f2845960
-#>  2       1       26 798ab8e7 e3cb8f22
-#>  3       1       28 239934f7 4f57606f
-#>  4       1       26 9eef294d 37e61874
-#>  5       2        7 59341801 37e61874
-#>  6       3        5 5a29d3a2 37e61874
-#>  7       1       34 a0492b6e ca25e7cd
-#>  8       1       22 e95c75a4 1684b9a6
-#>  9       1       24 e68298ec 16df61bd
-#> 10       1       17 c3617211 769224d3
+#> # A tibble: 108 x 6
+#>     ncol         type subobject   object     path ncoords_
+#>    <int>        <chr>     <int>    <chr>    <chr>    <int>
+#>  1     2 MULTIPOLYGON         1 7bd00c9e 44a103a7       27
+#>  2     2 MULTIPOLYGON         1 5f37096a 7a6067fc       26
+#>  3     2 MULTIPOLYGON         1 5db6ca83 b2a4fa3f       28
+#>  4     2 MULTIPOLYGON         1 161e4449 23e051d0       26
+#>  5     2 MULTIPOLYGON         2 161e4449 b502a692        7
+#>  6     2 MULTIPOLYGON         3 161e4449 1a88a667        5
+#>  7     2 MULTIPOLYGON         1 8a5abd8f e2e33acb       34
+#>  8     2 MULTIPOLYGON         1 cb288810 eb4bb191       22
+#>  9     2 MULTIPOLYGON         1 a1113ca9 59226caa       24
+#> 10     2 MULTIPOLYGON         1 c115cb1f d58f97a6       17
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 x 3
 #>           x_       y_  vertex_
 #>        <dbl>    <dbl>    <chr>
-#>  1 -81.47276 36.23436 f3f77f73
-#>  2 -81.54084 36.27251 6980b941
-#>  3 -81.56198 36.27359 531ec31f
-#>  4 -81.63306 36.34069 74d789d0
-#>  5 -81.74107 36.39178 23fa38f0
-#>  6 -81.69828 36.47178 73a2aca9
-#>  7 -81.70280 36.51934 b09e424a
-#>  8 -81.67000 36.58965 03a8405f
-#>  9 -81.34530 36.57286 34ec18a3
-#> 10 -81.34754 36.53791 3cb21147
+#>  1 -81.47276 36.23436 70bb0a50
+#>  2 -81.54084 36.27251 206bd287
+#>  3 -81.56198 36.27359 ea7b6cc8
+#>  4 -81.63306 36.34069 d67d84d7
+#>  5 -81.74107 36.39178 6d288061
+#>  6 -81.69828 36.47178 247b4cb6
+#>  7 -81.70280 36.51934 e0dd0299
+#>  8 -81.67000 36.58965 c2310979
+#>  9 -81.34530 36.57286 f31060df
+#> 10 -81.34754 36.53791 6d03b30d
 #> # ... with 1,245 more rows
 #> 
 #> $path_link_vertex
 #> # A tibble: 2,529 x 2
-#>       path_  vertex_
+#>        path  vertex_
 #>       <chr>    <chr>
-#>  1 e8327d00 f3f77f73
-#>  2 e8327d00 6980b941
-#>  3 e8327d00 531ec31f
-#>  4 e8327d00 74d789d0
-#>  5 e8327d00 23fa38f0
-#>  6 e8327d00 73a2aca9
-#>  7 e8327d00 b09e424a
-#>  8 e8327d00 03a8405f
-#>  9 e8327d00 34ec18a3
-#> 10 e8327d00 3cb21147
+#>  1 44a103a7 70bb0a50
+#>  2 44a103a7 206bd287
+#>  3 44a103a7 ea7b6cc8
+#>  4 44a103a7 d67d84d7
+#>  5 44a103a7 6d288061
+#>  6 44a103a7 247b4cb6
+#>  7 44a103a7 e0dd0299
+#>  8 44a103a7 c2310979
+#>  9 44a103a7 f31060df
+#> 10 44a103a7 6d03b30d
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -137,12 +140,12 @@ library(dplyr)
 #> 
 #>     intersect, setdiff, setequal, union
 tab <- bmodel  %>% inner_cascade()
-#> Joining, by = "object_"
-#> Joining, by = "path_"
+#> Joining, by = "object"
+#> Joining, by = "path"
 #> Joining, by = "vertex_"
 
 library(ggplot2)
-ggplot(tab) + aes(x = x_, y = y_, group = path_) + 
+ggplot(tab) + aes(x = x_, y = y_, group = path) + 
   geom_polygon(aes(fill = AREA)) +  geom_path(lwd = 2, col = "black") 
 ```
 
@@ -160,32 +163,34 @@ str(iw)
 #>  $ object          :Classes 'tbl_df', 'tbl' and 'data.frame':    6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object_ : chr [1:6] "2973b728" "0237f58e" "1c239bbf" "1c730c88" ...
+#>   ..$ object  : chr [1:6] "b2f43348" "7dda9a78" "9b4ac03d" "353b9b72" ...
 #>   ..- attr(*, "sf_column")= chr "geom"
 #>   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
 #>   .. ..- attr(*, "names")= chr [1:2] "ID" "Province"
-#>  $ path            :Classes 'tbl_df', 'tbl' and 'data.frame':    189 obs. of  4 variables:
-#>   ..$ island_ : chr [1:189] "1" "1" "1" "1" ...
-#>   ..$ ncoords_: int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
-#>   ..$ path_   : chr [1:189] "0bd9afb3" "ae11e1da" "ca5f46c4" "865ee056" ...
-#>   ..$ object_ : chr [1:189] "2973b728" "0237f58e" "1c239bbf" "1c239bbf" ...
+#>  $ path            :Classes 'tbl_df', 'tbl' and 'data.frame':    189 obs. of  6 variables:
+#>   ..$ ncol     : int [1:189] 2 2 2 2 2 2 2 2 2 2 ...
+#>   ..$ type     : chr [1:189] "MULTIPOLYGON" "MULTIPOLYGON" "MULTIPOLYGON" "MULTIPOLYGON" ...
+#>   ..$ subobject: int [1:189] 1 1 1 1 1 1 1 1 1 1 ...
+#>   ..$ object   : chr [1:189] "b2f43348" "7dda9a78" "9b4ac03d" "9b4ac03d" ...
+#>   ..$ path     : chr [1:189] "3340cf07" "a4246dd6" "283d3358" "467a50a3" ...
+#>   ..$ ncoords_ : int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
 #>  $ vertex          :Classes 'tbl_df', 'tbl' and 'data.frame':    30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "45db5dce" "6144a969" "d7e0986c" "307ecfa6" ...
+#>   ..$ vertex_: chr [1:30835] "7a07207b" "70c33671" "686dffb7" "12afa9b7" ...
 #>  $ path_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':    33644 obs. of  2 variables:
-#>   ..$ path_  : chr [1:33644] "0bd9afb3" "0bd9afb3" "0bd9afb3" "0bd9afb3" ...
-#>   ..$ vertex_: chr [1:33644] "45db5dce" "6144a969" "d7e0986c" "307ecfa6" ...
+#>   ..$ path   : chr [1:33644] "3340cf07" "3340cf07" "3340cf07" "3340cf07" ...
+#>   ..$ vertex_: chr [1:33644] "7a07207b" "70c33671" "686dffb7" "12afa9b7" ...
 #>  - attr(*, "class")= chr [1:2] "PATH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "path" "path_link_vertex" "vertex"
 
 tab <- iw  %>% inner_cascade()
-#> Joining, by = "object_"
-#> Joining, by = "path_"
+#> Joining, by = "object"
+#> Joining, by = "path"
 #> Joining, by = "vertex_"
 
 library(ggplot2)
-ggplot(tab) + aes(x = x_, y = y_, group = path_) + 
+ggplot(tab) + aes(x = x_, y = y_, group = path) + 
   ggpolypath::geom_polypath(aes(fill = Province)) +  geom_path(col = "black") 
 ```
 
@@ -193,7 +198,7 @@ ggplot(tab) + aes(x = x_, y = y_, group = path_) +
 
 ``` r
 
-ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, group = path_) + 
+ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, group = path) + 
   ggpolypath::geom_polypath(fill = "dodgerblue") +  geom_path(col = "black") + coord_fixed()
 ```
 

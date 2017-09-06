@@ -56,7 +56,7 @@ library(dplyr)
 tab <- bmodel  %>% inner_cascade()
 
 library(ggplot2)
-ggplot(tab) + aes(x = x_, y = y_, group = path_) + 
+ggplot(tab) + aes(x = x_, y = y_, group = path) + 
   geom_polygon(aes(fill = AREA)) +  geom_path(lwd = 2, col = "black") 
 ```
 
@@ -72,10 +72,10 @@ str(iw)
 tab <- iw  %>% inner_cascade()
 
 library(ggplot2)
-ggplot(tab) + aes(x = x_, y = y_, group = path_) + 
+ggplot(tab) + aes(x = x_, y = y_, group = path) + 
   ggpolypath::geom_polypath(aes(fill = Province)) +  geom_path(col = "black") 
 
-ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, group = path_) + 
+ggplot(tab %>% filter(Province == "South Australia")) + aes(x = x_, y = y_, group = path) + 
   ggpolypath::geom_polypath(fill = "dodgerblue") +  geom_path(col = "black") + coord_fixed()
 
 ```
