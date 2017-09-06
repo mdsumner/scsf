@@ -44,7 +44,7 @@ sf.PRIMITIVE <- function(x, ...) {
    brl <- vector("list", nrow(path))
     for (i_br in seq(nrow(path))) {
   # this all needs revisit based on what kind of simple feature we have
-      br_0 <-   inner_join(inner_join(path[i_br, ], x[["path_link_vertex"]], "path_"), x[["vertex"]], "vertex_")
+      br_0 <-   inner_join(inner_join(path[i_br, ], x[["path_link_vertex"]], "path"), x[["vertex"]], "vertex_")
       br_0 <- split(br_0, br_0[["island_"]])
 
      brl[[i_br]] <- lapply(br_0, function(aa) as.matrix(aa[c(seq_len(nrow(aa)), 1L), c("x_", "y_")]))
@@ -85,9 +85,9 @@ sf.PATH <- function(x, ...) {
 #       
 #     }
 #     )
-#   d <- x[["segment"]] %>% dplyr::select(path_)
+#   d <- x[["segment"]] %>% dplyr::select(path)
 #   d[["geometry"]] <- g[x[["segment"]][["segment_"]]]
-#   d <- d %>% dplyr::group_by(path_) %>% tidyr::nest()
+#   d <- d %>% dplyr::group_by(path) %>% tidyr::nest()
 #   d[["geometry"]] <- d[["data"]] %>% purrr::map(function(x) sf::st_polygonize(st_union(st_geometrycollection(as.list(x$geometry)))))  %>% st_sfc()
 #   
 #   d[["data"]] <- NULL

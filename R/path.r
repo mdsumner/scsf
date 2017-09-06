@@ -1,6 +1,6 @@
 
 #' @importFrom purrr map_df
-sc_atom <- function(x, ...) faster_as_tibble(list(ncoords_= nrow(x), path_ = sc_uid()))
+sc_atom <- function(x, ...) faster_as_tibble(list(ncoords_= nrow(x), path = sc_uid()))
 sc_list <- function(x) {
   dplyr::bind_rows(lapply(x, sc_atom))
 }
@@ -38,11 +38,12 @@ sc_path.sf <- function(x, ...) {
 #' #sc_path(sf::st_sfc(sfzoo))
 sc_path.sfc <- function(x, ids = NULL, ...) {
   x <- gibble::gibble(x)
-  x[["path_"]] <- sc::sc_uid(nrow(x))
+  if (is.null(ids)) ids <- sc::sc_uid(nrow(x))
+  x[["path"]] <- ids
   #dplyr::rename(x, island_ = rlang::.data$part, ncoords_ = rlang::.data$nrow)
-  x[["island_"]] <- x[["part"]]
+  #x[["island_"]] <- x[["part"]]
   x[["ncoords_"]] <- x[["nrow"]]
-  x[["part"]] <- NULL
+  #x[["part"]] <- NULL
   x[["nrow"]] <- NULL
   x
 }
@@ -57,6 +58,11 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
 # #  }
 #  tibble::as_tibble(structure(do.call(rbind, x), dimnames = c(list(NULL), list(c("ncoord", "ndim")))))
 
+gibble_path <- function(x, ids = NULL, ...) {
+  out <- gibble::gibble(x)
+  if (is.null(ids)) ids <- sc_uid(nrow(out))
+  dplyr::mutate(out, path = ids)
+}
 
 #' @name sc_path
 #' @export
@@ -64,7 +70,7 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
 #' @examples
 #' sc_path(sfzoo$multipolygon)
 sc_path.MULTIPOLYGON <- function(x, ...) {
-  dplyr::bind_rows(lapply(x, sc_list), .id = "island_") 
+  gibble_path(x)
 }
 
 #' @name sc_path
@@ -72,33 +78,33 @@ sc_path.MULTIPOLYGON <- function(x, ...) {
 #' @examples 
 #' sc_path(sfzoo$polygon)
 sc_path.POLYGON <- function(x, ...) {
-  sc_list(x)
+  gibble_path(x)
 }
 #' @name sc_path
 #' @export
 #' @examples 
 #' sc_path(sfzoo$linestring)
-sc_path.LINESTRING <- sc_atom
+sc_path.LINESTRING <- function(x, ...) gibble_path(x)
 #' @name sc_path
 #' @export
 #' @examples 
 #' sc_path(sfzoo$multilinestring)
-sc_path.MULTILINESTRING <- sc_path.POLYGON
+sc_path.MULTILINESTRING <- function(x, ...) gibble_path(x)
 #' @name sc_path
 #' @export
 #' @examples 
 #' sc_path(sfzoo$point)
-sc_path.POINT <- function(x, ...) sc_atom(matrix(x, nrow = 1L))
+sc_path.POINT <- function(x, ...) gibble_path(x)
 #' @name sc_path
 #' @export
 #' @examples 
 #' sc_path(sfzoo$multipoint)
-sc_path.MULTIPOINT <- function(x, ...) sc_atom(unclass(x))
+sc_path.MULTIPOINT <- function(x, ...) gibble_path(x)
 #' @name sc_path
 #' @export
 #' @examples 
 #' sc_path(sfzoo$multipoint)
-sc_path.GEOMETRYCOLLECTION <- function(x, ...) lapply(x, sc_path)
+sc_path.GEOMETRYCOLLECTION <- function(x, ...) lapply(x, gibble_path)
 
 
 

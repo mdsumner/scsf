@@ -7,7 +7,7 @@ data("sfgc")
 test_that("raw geometry decomposition works", {
   dplyr::bind_rows(lapply(sfzoo, sc_path)) %>% 
   expect_s3_class("tbl_df") %>% 
-    expect_named(c("ncoords_", "path_", "island_"))
+    expect_named(c("nrow", "ncol", "type", "path", "subobject"))
 })
 nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 inner_cascade <- function(x) {
@@ -20,7 +20,7 @@ nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 test_that("geometrycollection decomposition works", {
   dplyr::bind_rows(lapply(sfgc, sc_path)) %>% 
   expect_s3_class("tbl_df") %>% 
-    expect_named(c("ncoords_", "path_", "island_"))
+    expect_named(c("nrow", "ncol", "type", "path", "subobject"))
 })
 
 nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
