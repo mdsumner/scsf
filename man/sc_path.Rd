@@ -21,7 +21,7 @@
 \alias{sc_path.GEOMETRYCOLLECTION}
 \title{Common path forms.}
 \usage{
-\method{sc_path}{sf}(x, ...)
+\method{sc_path}{sf}(x, ids = NULL, ...)
 
 \method{sc_path}{sfc}(x, ids = NULL, ...)
 
@@ -42,9 +42,9 @@
 \arguments{
 \item{x}{simple features object}
 
-\item{...}{arguments to methods}
-
 \item{ids}{object id, one for each object in the `sfc`}
+
+\item{...}{arguments to methods}
 }
 \description{
 Paths.

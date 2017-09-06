@@ -25,8 +25,8 @@ sc_list <- function(x) {
 #' #sf_dataset <- sf::st_sf(geometry = sf::st_sfc(sfzoo[[2]]), a = 1)
 #' #PATH(sf_dataset)
 #' #sc_path(sf::st_sfc(sfzoo))
-sc_path.sf <- function(x, ...) {
-  sc_path(.st_get_geometry(x), ...)
+sc_path.sf <- function(x, ids = NULL, ...) {
+  sc_path(.st_get_geometry(x), ids = ids, ...)
 }
 
 #' @param ids object id, one for each object in the `sfc`
@@ -39,11 +39,10 @@ sc_path.sf <- function(x, ...) {
 sc_path.sfc <- function(x, ids = NULL, ...) {
   x <- gibble::gibble(x)
   if (is.null(ids)) {
-    ids <- sc::sc_uid(nrow(x))
-  } else {
-    ids <- ids[x[["object"]]]
-  }
-  x[["path"]] <- ids
+    ids <- sc::sc_uid(length(unique(x[["object"]])))
+  } 
+  x[["object"]] <- ids[x[["object"]]]
+  x[["path"]] <- sc::sc_uid(nrow(x))
   #dplyr::rename(x, island_ = rlang::.data$part, ncoords_ = rlang::.data$nrow)
   #x[["island_"]] <- x[["part"]]
   x[["ncoords_"]] <- x[["nrow"]]
@@ -62,14 +61,21 @@ sc_path.sfc <- function(x, ids = NULL, ...) {
 # #  }
 #  tibble::as_tibble(structure(do.call(rbind, x), dimnames = c(list(NULL), list(c("ncoord", "ndim")))))
 
-gibble_path <- function(x, ids = NULL, ...) {
+gibble_path <- function(x,  ...) {
   out <- gibble::gibble(x)
-  if (is.null(ids)) {
-    ids <- sc_uid(nrow(out))
-  } else {
-    ids <- ids[out[["object"]]]
-  }
-  dplyr::mutate(out, path = ids)
+#  if (is.null(ids)) {
+#    ids <- sc::sc_uid(1)
+#  } 
+#  out[["object"]] <- ids
+  out[["path"]] <- sc::sc_uid(nrow(out))
+  
+  #if (is.null(ids)) {
+  #  ids <- sc_uid(nrow(out))
+  #} else {
+  #  ids <- ids[out[["object"]]]
+  #}
+  #dplyr::mutate(out, path = ids)
+  out
 }
 
 #' @name sc_path

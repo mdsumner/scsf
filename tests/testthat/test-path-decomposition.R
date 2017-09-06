@@ -1,6 +1,6 @@
 context("path-decomposition")
 library(sf)
-
+library(scsf)
 nc = st_read(system.file("shape/nc.shp", package="sf"), quiet = TRUE)
 data("sfzoo")
 data("sfgc")
