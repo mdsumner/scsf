@@ -1,4 +1,8 @@
-# scsf dev
+# scsf 0.0.3
+
+* commit to new "gibble" scheme
+
+* remove path_ object_ instances
 
 * use decomposition with matrices from gibble for speed up
 
