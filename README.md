@@ -30,12 +30,12 @@ The common form is the entity tables, objects, paths, vertices and a link table 
 
 ``` r
 library(scsf)
-#> Loading required package: sc
+#> Loading required package: silicate
 #> 
 #> Attaching package: 'scsf'
-#> The following object is masked from 'package:sc':
+#> The following objects are masked from 'package:silicate':
 #> 
-#>     minimal_mesh
+#>     inlandwaters, minimal_mesh
 nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> Reading layer `nc.gpkg' from data source `/perm_storage/home/mdsumner/R/x86_64-pc-linux-gnu-library/3.4/sf/gpkg/nc.gpkg' using driver `GPKG'
 #> Simple feature collection with 100 features and 14 fields
@@ -68,48 +68,48 @@ nc = st_read(system.file("gpkg/nc.gpkg", package="sf"))
 #> # A tibble: 108 x 6
 #>     ncol         type subobject   object     path ncoords_
 #>    <int>        <chr>     <int>    <chr>    <chr>    <int>
-#>  1     2 MULTIPOLYGON         1 ff0d09e5 86f8959f       27
-#>  2     2 MULTIPOLYGON         1 566d4b11 6ded3ff5       26
-#>  3     2 MULTIPOLYGON         1 be21a51f c4c0189d       28
-#>  4     2 MULTIPOLYGON         1 f56ed37f f24a83be       26
-#>  5     2 MULTIPOLYGON         2 f56ed37f 345ad4f3        7
-#>  6     2 MULTIPOLYGON         3 f56ed37f 38acdaf6        5
-#>  7     2 MULTIPOLYGON         1 7fe51de5 806b86db       34
-#>  8     2 MULTIPOLYGON         1 1597150a 1f4dcdb7       22
-#>  9     2 MULTIPOLYGON         1 a0970bbf 4a31a480       24
-#> 10     2 MULTIPOLYGON         1 cba46cf6 5b80d4af       17
+#>  1     2 MULTIPOLYGON         1 83cc972d 4ceb1a79       27
+#>  2     2 MULTIPOLYGON         1 4e6c51ba 8aa608c2       26
+#>  3     2 MULTIPOLYGON         1 220da212 f385bee3       28
+#>  4     2 MULTIPOLYGON         1 a9be497e 09d360de       26
+#>  5     2 MULTIPOLYGON         2 a9be497e c6b44df2        7
+#>  6     2 MULTIPOLYGON         3 a9be497e 12d320f3        5
+#>  7     2 MULTIPOLYGON         1 aedde6f5 a9854148       34
+#>  8     2 MULTIPOLYGON         1 5205473e 2e295f5f       22
+#>  9     2 MULTIPOLYGON         1 e422b229 8bd3fc64       24
+#> 10     2 MULTIPOLYGON         1 df2eab80 398f9e7c       17
 #> # ... with 98 more rows
 #> 
 #> $vertex
 #> # A tibble: 1,255 x 3
 #>           x_       y_  vertex_
 #>        <dbl>    <dbl>    <chr>
-#>  1 -81.47276 36.23436 21ce7d5d
-#>  2 -81.54084 36.27251 bb5ff789
-#>  3 -81.56198 36.27359 a9334bd1
-#>  4 -81.63306 36.34069 24926045
-#>  5 -81.74107 36.39178 7942039a
-#>  6 -81.69828 36.47178 1b217a64
-#>  7 -81.70280 36.51934 65e74838
-#>  8 -81.67000 36.58965 41feb74f
-#>  9 -81.34530 36.57286 c19baced
-#> 10 -81.34754 36.53791 cfc02537
+#>  1 -81.47276 36.23436 843f3357
+#>  2 -81.54084 36.27251 5fdeb201
+#>  3 -81.56198 36.27359 1c9f2fab
+#>  4 -81.63306 36.34069 1870fd10
+#>  5 -81.74107 36.39178 8111a974
+#>  6 -81.69828 36.47178 8817bcb8
+#>  7 -81.70280 36.51934 23f22fa4
+#>  8 -81.67000 36.58965 94b4c37c
+#>  9 -81.34530 36.57286 2d3cfd7d
+#> 10 -81.34754 36.53791 53c92a50
 #> # ... with 1,245 more rows
 #> 
 #> $path_link_vertex
 #> # A tibble: 2,529 x 2
 #>        path  vertex_
 #>       <chr>    <chr>
-#>  1 86f8959f 21ce7d5d
-#>  2 86f8959f bb5ff789
-#>  3 86f8959f a9334bd1
-#>  4 86f8959f 24926045
-#>  5 86f8959f 7942039a
-#>  6 86f8959f 1b217a64
-#>  7 86f8959f 65e74838
-#>  8 86f8959f 41feb74f
-#>  9 86f8959f c19baced
-#> 10 86f8959f cfc02537
+#>  1 4ceb1a79 843f3357
+#>  2 4ceb1a79 5fdeb201
+#>  3 4ceb1a79 1c9f2fab
+#>  4 4ceb1a79 1870fd10
+#>  5 4ceb1a79 8111a974
+#>  6 4ceb1a79 8817bcb8
+#>  7 4ceb1a79 23f22fa4
+#>  8 4ceb1a79 94b4c37c
+#>  9 4ceb1a79 2d3cfd7d
+#> 10 4ceb1a79 53c92a50
 #> # ... with 2,519 more rows
 #> 
 #> attr(,"class")
@@ -123,7 +123,7 @@ Prove that things work by round-tripping to the PATH model and onto the old fort
 
 ``` r
 inner_cascade <- function(x) {
-  tabnames <- sc:::join_ramp(x)
+  tabnames <- silicate:::join_ramp(x)
   tab <- x[[tabnames[1]]]
   for (ni in tabnames[-1L]) tab <- dplyr::inner_join(tab, x[[ni]])
   tab
@@ -163,7 +163,7 @@ str(iw)
 #>  $ object          :Classes 'tbl_df', 'tbl' and 'data.frame':    6 obs. of  3 variables:
 #>   ..$ ID      : int [1:6] 103841 103842 103843 103846 103847 103848
 #>   ..$ Province: chr [1:6] "Australian Capital Territory" "New Caledonia" "New South Wales" "South Australia" ...
-#>   ..$ object  : chr [1:6] "ed4d711f" "8e7eed64" "f1633b47" "c7d4500d" ...
+#>   ..$ object  : chr [1:6] "6231a2b3" "0748e369" "4cfb8987" "57130e22" ...
 #>   ..- attr(*, "sf_column")= chr "geom"
 #>   ..- attr(*, "agr")= Factor w/ 3 levels "constant","aggregate",..: NA NA
 #>   .. ..- attr(*, "names")= chr [1:2] "ID" "Province"
@@ -171,16 +171,16 @@ str(iw)
 #>   ..$ ncol     : int [1:189] 2 2 2 2 2 2 2 2 2 2 ...
 #>   ..$ type     : chr [1:189] "MULTIPOLYGON" "MULTIPOLYGON" "MULTIPOLYGON" "MULTIPOLYGON" ...
 #>   ..$ subobject: int [1:189] 1 1 1 1 1 1 1 1 1 1 ...
-#>   ..$ object   : chr [1:189] "ed4d711f" "8e7eed64" "f1633b47" "f1633b47" ...
-#>   ..$ path     : chr [1:189] "2c7ed73f" "83c02f16" "6493400c" "406dfd04" ...
+#>   ..$ object   : chr [1:189] "6231a2b3" "0748e369" "4cfb8987" "4cfb8987" ...
+#>   ..$ path     : chr [1:189] "e3d22cca" "062fe863" "9811579f" "4a8545d7" ...
 #>   ..$ ncoords_ : int [1:189] 280 27 7310 68 280 88 162 119 51 71 ...
 #>  $ vertex          :Classes 'tbl_df', 'tbl' and 'data.frame':    30835 obs. of  3 variables:
 #>   ..$ x_     : num [1:30835] 1116371 1117093 1117172 1117741 1117629 ...
 #>   ..$ y_     : num [1:30835] -458419 -457111 -456893 -456561 -455510 ...
-#>   ..$ vertex_: chr [1:30835] "cc1bd1ed" "79379051" "53bbfb6d" "b746c05b" ...
+#>   ..$ vertex_: chr [1:30835] "be17eacc" "f45a7f3b" "61b69e20" "87cc6dc7" ...
 #>  $ path_link_vertex:Classes 'tbl_df', 'tbl' and 'data.frame':    33644 obs. of  2 variables:
-#>   ..$ path   : chr [1:33644] "2c7ed73f" "2c7ed73f" "2c7ed73f" "2c7ed73f" ...
-#>   ..$ vertex_: chr [1:33644] "cc1bd1ed" "79379051" "53bbfb6d" "b746c05b" ...
+#>   ..$ path   : chr [1:33644] "e3d22cca" "e3d22cca" "e3d22cca" "e3d22cca" ...
+#>   ..$ vertex_: chr [1:33644] "be17eacc" "f45a7f3b" "61b69e20" "87cc6dc7" ...
 #>  - attr(*, "class")= chr [1:2] "PATH" "sc"
 #>  - attr(*, "join_ramp")= chr [1:4] "object" "path" "path_link_vertex" "vertex"
 

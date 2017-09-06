@@ -6,7 +6,7 @@ Authors@R: c(person("Michael D.","Sumner", role = c("aut", "cre"), email = "mdsu
 Description: Work with a generic, common data form for simple features. 
 Depends:
     R (>= 3.3.2), 
-    sc (>= 0.0.3)
+    silicate (>= 0.0.3)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -22,5 +22,5 @@ Imports: dplyr,
     ids,
     purrr,
     tibble
-Remotes: mdsumner/sc, mdsumner/gibble
+Remotes: mdsumner/silicate, mdsumner/gibble
 VignetteBuilder: knitr

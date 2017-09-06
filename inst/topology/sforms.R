@@ -76,7 +76,7 @@ build_sf_multipolygon <- function(x, gdim = "XY") {
   
 }
 prepare_sf_ct <- function(x) {
-  tabs <- sc::PRIMITIVE(x)
+  tabs <- silicate::PRIMITIVE(x)
   
   segment <-  tibble::tibble(vertex_ = c(t(as.matrix(tabs$segment %>% 
     dplyr::select(.vertex0, .vertex1))))) %>%
